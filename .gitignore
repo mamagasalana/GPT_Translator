@@ -1,3 +1,4 @@
 user_data/*
 *.log
 *__pycache__
+venv/*

@@ -7,8 +7,13 @@ from selenium.webdriver.common.keys import Keys
 
 from novel import NOVEL
 import time
+import os
+
+if os.name == 'nt':
 # Specify the path to your user profile directory
-USER_DATA_DIR = r"C:\Users\ASUS\Desktop\Research\GPT_Translator\user_data"
+    USER_DATA_DIR = r"C:\Users\ASUS\Desktop\Research\GPT_Translator\user_data"
+else:
+    USER_DATA_DIR = r'/home/ytee/test/GPT_Translator/user_data'
 
 class GPT_HANDLER:
     def __init__(self):
