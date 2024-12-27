@@ -39,21 +39,21 @@ class GPT_HANDLER:
         while True:
             while True:
                 try:
-                    elm = WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located((By.XPATH, x3)))
+                    elm = WebDriverWait(self.driver, 3).until(EC.presence_of_element_located((By.XPATH, x3)))
                     break
                 except:
                     time.sleep(10)
 
             #verify if mandarin
             try:
-                elm = WebDriverWait(self.driver, 3).until(EC.visibility_of_element_located((By.XPATH, xbottom)))
+                elm = WebDriverWait(self.driver, 3).until(EC.presence_of_element_located((By.XPATH, xbottom)))
                 elm.click()
                 time.sleep(1)
             except:
                 print("button not found?")
             
-            elm = WebDriverWait(self.driver, 10).until(EC.visibility_of_all_elements_located((By.XPATH, xret)))
-            elm2 = WebDriverWait(elm[-1], 10).until(EC.visibility_of_all_elements_located((By.XPATH, './/p')))
+            elm = WebDriverWait(self.driver, 10).until(EC.presence_of_all_elements_located((By.XPATH, xret)))
+            elm2 = WebDriverWait(elm[-1], 10).until(EC.presence_of_all_elements_located((By.XPATH, './/p')))
             if not elm2:
                 print("no response found?")
                 continue
@@ -62,8 +62,13 @@ class GPT_HANDLER:
             for elm22 in elm2:
                 verify_txt = elm22.text
                 if verify_txt:
-                    lang = detect(verify_txt)
-                    validation.append(lang)
+                    try:
+                        lang = detect(verify_txt)
+                        validation.append(lang)
+                    except:
+                        print(verify_txt)
+                        pass
+                    
 
             if len(validation) == 0:
                 print("no response found2?")
@@ -111,7 +116,7 @@ class GPT_HANDLER:
     
     def send_msg(self):
         x2 = '//button[@data-testid="send-button"]'
-        elm = WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located((By.XPATH, x2)))
+        elm = WebDriverWait(self.driver, 10).until(EC.presence_of_element_located((By.XPATH, x2)))
         elm.click()
 
     def new_chat(self, txt):
@@ -120,7 +125,7 @@ class GPT_HANDLER:
         # x1 = '//textarea[@placeholder="New chat in this project"]'
         
         
-        elm = WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located((By.XPATH, x1)))
+        elm = WebDriverWait(self.driver, 10).until(EC.presence_of_element_located((By.XPATH, x1)))
         for part in txt.split('\n'):
             while True:
                 elm.send_keys(part)
@@ -139,7 +144,7 @@ class GPT_HANDLER:
         # x1 = '//textarea[@placeholder="Message ChatGPT"]'
         x1 = '//p[@data-placeholder="Message ChatGPT"]'
         
-        elm = WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located((By.XPATH, x1)))
+        elm = WebDriverWait(self.driver, 10).until(EC.presence_of_element_located((By.XPATH, x1)))
         for part in txt.split('\n'):
             elm.send_keys(part)
             elm.send_keys(Keys.SHIFT + Keys.ENTER)
