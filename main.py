@@ -120,7 +120,7 @@ class GPT_HANDLER:
         elm.click()
 
     def new_chat(self, txt):
-        self.driver.get("https://chatgpt.com/g/g-p-6767cd8419d0819189eaa12acdc44a23-i-parry-everything/project")
+        self.driver.get("https://chatgpt.com/g/g-p-67715a83c998819188174385ab9fd445-as-a-reincarnated-aristocrat/project")
         x1 = '//p[@data-placeholder="New chat in this project"]'
         # x1 = '//textarea[@placeholder="New chat in this project"]'
         
@@ -155,7 +155,7 @@ class GPT_HANDLER:
         self.send_msg()
 
     def main(self, page):
-        n = NOVEL(page=page)
+        n = NOVEL(url='https://ncode.syosetu.com/n5619fv/',page=page)
         pages= []
         for data in n.iter_page():
             page = data['page']
