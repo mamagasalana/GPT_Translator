@@ -155,16 +155,19 @@ class GPT_HANDLER:
         self.send_msg()
 
     def main(self, page):
+        max_page = page + 7
         n = NOVEL(url='https://ncode.syosetu.com/n5619fv/',page=page)
         pages= []
         for data in n.iter_page():
             page = data['page']
             txt = data['data']
-
+            if page > max_page:
+                return
+            
             if page not in pages:
                 if len(pages) == 4:
                     pages = []
-                    return #may have hit gpt limit
+                    # return #may have hit gpt limit
                 
                 if not pages:
                     first = True
@@ -172,7 +175,8 @@ class GPT_HANDLER:
                 pages.append(page)
             
             if first:
-                self.new_chat(txt)
+                page_info = f'{page} - {page+3}\n\n'
+                self.new_chat(page_info+txt)
                 first=False
             else:
                 self.resume_chat(txt)
