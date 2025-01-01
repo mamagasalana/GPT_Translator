@@ -80,6 +80,9 @@ class GPT_HANDLER:
             else:
                 print('not mandarin: %s' % verify_txt)
                 elm = WebDriverWait(self.driver, 10).until(EC.presence_of_all_elements_located((By.XPATH, xbad)))
+                if len(elm) < 2:
+                    # first sent
+                    continue
                 self.driver.execute_script("arguments[0].scrollIntoView();", elm[-2])
 
                 elm = WebDriverWait(self.driver, 10).until(EC.presence_of_all_elements_located((By.XPATH, xwhite)))
