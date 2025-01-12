@@ -9,6 +9,8 @@ from novel import NOVEL
 import time
 import os
 
+PAGE_LIMIT =3
+MAX_GPT_PAGE = 3
 if os.name == 'nt':
 # Specify the path to your user profile directory
     USER_DATA_DIR = r"C:\Users\ASUS\Desktop\Research\GPT_Translator\user_data"
@@ -158,17 +160,15 @@ class GPT_HANDLER:
         self.send_msg()
 
     def main(self, page):
-        max_page = page + 7
-        n = NOVEL(url='https://ncode.syosetu.com/n5947eg/',page=page)
+        max_page = page + MAX_GPT_PAGE*PAGE_LIMIT -1 
+        n = NOVEL(max_page=max_page, url='https://ncode.syosetu.com/n5947eg/',page=page)
         pages= []
         for data in n.iter_page():
             page = data['page']
             txt = data['data']
-            if page > max_page:
-                return
-            
+
             if page not in pages:
-                if len(pages) == 4:
+                if len(pages) == PAGE_LIMIT:
                     pages = []
                     # return #may have hit gpt limit
                 
@@ -178,7 +178,7 @@ class GPT_HANDLER:
                 pages.append(page)
             
             if first:
-                page_info = f'{page} - {page+3}\n\n'
+                page_info = f'{page} - {page+PAGE_LIMIT-1}\n\n'
                 self.new_chat(page_info+txt)
                 first=False
             else:
