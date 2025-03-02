@@ -27,18 +27,18 @@ HEADERS = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36",
 }
 class NOVEL:
-    def __init__(self, max_page, url='https://ncode.syosetu.com/n6537fu/', page=1):
+    def __init__(self, max_page, url='https://ncode.syosetu.com/n6169dz/', page=1):
         self.url = url
         self.page= page
         self.max_page = max_page
         self.session = requests.session()
 
-    def iter_page(self):
+    def iter_page(self, max_length=1800):
         while self.page <= self.max_page :
             url2 = self.url + str(self.page)
             logging.info(url2)
             r=  self.session.get(url2, headers=HEADERS)
-            for content in self.iter_content(r.content):
+            for content in self.iter_content(r.content, max_length):
                 if 'error' in content:
                     return
                 else:

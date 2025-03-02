@@ -125,7 +125,7 @@ class GPT_HANDLER:
         elm.click()
 
     def new_chat(self, txt):
-        self.driver.get("https://chatgpt.com/g/g-p-677bcf8b16b08191b7c70e054743cb61-my-daughter-left-the-nest-and-returned-as-s-rank/project")
+        self.driver.get("https://chatgpt.com/g/g-p-67c44a6994c48191aecd50e25fc3d91a-shangri-la-frontier/project")
         x1 = '//p[@data-placeholder="New chat in this project"]'
         # x1 = '//textarea[@placeholder="New chat in this project"]'
         
@@ -161,7 +161,7 @@ class GPT_HANDLER:
 
     def main(self, page):
         max_page = page + MAX_GPT_PAGE*PAGE_LIMIT -1 
-        n = NOVEL(max_page=max_page, url='https://ncode.syosetu.com/n5947eg/',page=page)
+        n = NOVEL(max_page=max_page, url='https://ncode.syosetu.com/n6169dz/',page=page)
         pages= []
         for data in n.iter_page():
             page = data['page']
